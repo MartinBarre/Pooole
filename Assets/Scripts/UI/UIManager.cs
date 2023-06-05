@@ -18,7 +18,7 @@ namespace UI
             EndLevel.OnLevelFinished += OpenEndLevel;
         }
         
-        private void OpenPause()
+        public void OpenPause()
         {
             CloseAllMenu();
             pauseMenu.gameObject.SetActive(true);

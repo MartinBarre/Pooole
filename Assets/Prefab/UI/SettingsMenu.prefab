@@ -160,8 +160,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
-        m_MethodName: ApplySettings
+        m_TargetAssemblyTypeName: UI.UIManager, Assembly-CSharp
+        m_MethodName: OpenPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2244,7 +2244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94a40a51ba3435f85b69abb4601bf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 8541de581cf214f1d8f1a3d9aba64275, type: 2}
   sliderMusic: {fileID: 8885097266575546057}
   sliderEffects: {fileID: 8095246342169130069}
   sliderUI: {fileID: 2342093264630948926}

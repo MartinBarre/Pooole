@@ -1936,14 +1936,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8980097597729321882}
-    - target: {fileID: 2236131842289913371, guid: 2b73d9b23e502984b8dc12e012b8ca08, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CloseSettings
-      objectReference: {fileID: 0}
-    - target: {fileID: 2236131842289913371, guid: 2b73d9b23e502984b8dc12e012b8ca08, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.PauseMenuUI, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 2342093264630948926, guid: 2b73d9b23e502984b8dc12e012b8ca08, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
