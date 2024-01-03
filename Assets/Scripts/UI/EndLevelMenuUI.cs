@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
-using Utils;
 using TMPro;
 using UnityEngine;
+using Utils;
 
 namespace UI
 {
@@ -10,7 +10,7 @@ namespace UI
     {
         public static event Action GoToNextLevel;
         public static event Action OnRestartLevel;
-        
+
         [SerializeField] private TMP_Text eggsTxt;
         [SerializeField] private GameObject messageGood;
         [SerializeField] private GameObject messageBad;
@@ -44,7 +44,7 @@ namespace UI
             messageGood.SetActive(win);
             messageBad.SetActive(!win);
         }
-        
+
         private IEnumerator OnLevelFinished()
         {
             yield return new WaitForSeconds(3f);

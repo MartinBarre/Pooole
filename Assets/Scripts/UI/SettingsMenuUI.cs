@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +15,7 @@ namespace UI
             sliderEffects.value = AudioManager.Instance.GetVolumeEffects();
             sliderUI.value = AudioManager.Instance.GetVolumeUI();
         }
-        
+
         public void SetVolumeMusic(float volume)
         {
             AudioManager.Instance.SetVolumeMusic(volume);

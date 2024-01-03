@@ -12,7 +12,7 @@ public class PlayerInput : MonoBehaviour
     private bool canMove = true;
     private bool canPause = true;
 
-    private void Awake()
+    private void OnEnable()
     {
         GameManager.OnGameOver += () => canMove = false;
         EndLevel.OnLevelFinished += () => StartCoroutine(OnLevelFinished());
@@ -20,16 +20,16 @@ public class PlayerInput : MonoBehaviour
 
     public static float Horizontal { get; private set; }
     public static bool Glide { get; private set; }
-    
+
     public void OnMove(InputValue value)
     {
-        if(!canMove) return;
+        if (!canMove) return;
         Horizontal = value.Get<float>();
     }
-    
+
     public void OnJump(InputValue value)
     {
-        if(!canMove) return;
+        if (!canMove) return;
         if (value.isPressed)
         {
             OnJumpPressed?.Invoke();
@@ -39,13 +39,13 @@ public class PlayerInput : MonoBehaviour
             OnJumpReleased?.Invoke();
         }
     }
-    
+
     public void OnGlide(InputValue value)
     {
-        if(!canMove) return;
+        if (!canMove) return;
         Glide = value.Get<float>() > 0.9f;
     }
-    
+
     public void OnPause(InputValue value)
     {
         if (!canPause) return;
@@ -60,9 +60,9 @@ public class PlayerInput : MonoBehaviour
         canMove = false;
         canPause = false;
         Horizontal = 1;
-        
+
         yield return new WaitForSeconds(3f);
-        
+
         canMove = false;
         Horizontal = 0;
     }

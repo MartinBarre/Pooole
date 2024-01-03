@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
     public static event Action<int> OnHeartsChanged;
     public static event Action OnGameOver;
     public static event Action OnPickFeather;
-    
+
     [Header("CAMERA")]
     public bool cameraFollowPlayer;
-    
+
     [Header("PLAYER")]
     public GameObject player;
     public Transform playerSpawn;
@@ -26,26 +26,33 @@ public class GameManager : MonoBehaviour
 
     [Header("PLAYER STATS")]
     private int eggs;
-    
+    public int TotalEggs { get; private set; }
+
     [Header("SOUNDS")]
     [SerializeField] private AudioClip soundTakeEgg;
 
     [SerializeField] private SceneEnum nextLevel;
 
+    public GameObject eggList;
     public List<GameObject> pickedEggs;
     public List<GameObject> pickedFeathers;
 
     private Collider2D[] _colliders;
+
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void OnEnable()
+    {
         CheckpointReach.OnCheckpointReach += OnCheckpointReach;
         EndLevel.OnLevelFinished += OnLevelFinished;
         EndLevelMenuUI.OnRestartLevel += RestartLevel;
         EndLevelMenuUI.GoToNextLevel += LoadNextLevel;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         CheckpointReach.OnCheckpointReach -= OnCheckpointReach;
         EndLevel.OnLevelFinished -= OnLevelFinished;
@@ -67,14 +74,14 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    
+
     private void Start()
     {
         OnEggsChanged?.Invoke(eggs);
         OnLivesChanged?.Invoke(lives);
         OnHeartsChanged?.Invoke(hearts);
+        TotalEggs = eggList.transform.childCount;
         player.transform.position = playerSpawn.position;
-        
         _colliders = player.GetComponentsInChildren<Collider2D>();
     }
 
@@ -114,10 +121,10 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2);
-        
+
         lives -= 1;
         OnLivesChanged?.Invoke(lives);
-        
+
         if (lives == 0)
         {
             OnGameOver?.Invoke();
@@ -125,15 +132,15 @@ public class GameManager : MonoBehaviour
         else
         {
             cameraFollowPlayer = true;
-            
+
             foreach (var col in _colliders)
             {
                 col.enabled = true;
             }
-        
+
             hearts = 3;
             OnHeartsChanged?.Invoke(hearts);
-        
+
             ReturnToCheckpoint();
         }
     }
@@ -142,7 +149,7 @@ public class GameManager : MonoBehaviour
     {
         return eggs;
     }
-    
+
     public void PickEgg(GameObject egg)
     {
         AudioManager.Instance.PlaySound(soundTakeEgg, 0.2f);
@@ -156,7 +163,7 @@ public class GameManager : MonoBehaviour
     {
         player.transform.position = playerSpawn.position;
         eggs -= pickedEggs.Count;
-        
+
         foreach (var egg in pickedEggs)
         {
             egg.SetActive(true);

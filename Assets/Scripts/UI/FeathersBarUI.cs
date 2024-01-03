@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ namespace UI
     {
         private Image[] _images;
 
-        private void Awake()
+        private void OnEnable()
         {
             PlayerController.OnRemainingJumpChange += UpdateUI;
         }

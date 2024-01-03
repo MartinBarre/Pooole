@@ -1,7 +1,7 @@
-using Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utils;
 
 namespace UI
 {
@@ -96,12 +96,12 @@ namespace UI
         {
             SceneManager.LoadSceneAsync((int)SceneEnum.LEVEL_1);
         }
-        
+
         public void LoadLevel2()
         {
             SceneManager.LoadSceneAsync((int)SceneEnum.LEVEL_2);
         }
-        
+
         public void LoadLevel3()
         {
             SceneManager.LoadSceneAsync((int)SceneEnum.LEVEL_3);

@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static event Action<int> OnRemainingJumpChange;
+    public static event Action OnHit;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private AudioChicken audioChicken;
-    
+
     [Header("MOVEMENT")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -18,12 +18,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float glideSpeed;
     [SerializeField] private float glideTimer;
     [SerializeField] private bool infiniteJump;
-    
+
     [Header("CHECKS")]
     [SerializeField] private Vector2 groundCheckOffset;
     [SerializeField] private Vector2 groundCheckSize;
     [SerializeField] private LayerMask groundLayerMask;
-    
+
     [Header("OTHER")]
     public bool isInvincible;
     public bool isGrounded;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         GameManager.OnPickFeather += OnPickFeather;
         GameManager.OnHeartsChanged += OnHeartsChanged;
     }
-    
+
     private void OnDisable()
     {
         PlayerInput.OnJumpPressed -= OnJumpPressed;
@@ -76,12 +76,12 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
         Glide();
     }
-    
+
     private void CheckGround()
     {
         var position = (Vector2)transform.position + groundCheckOffset;
         isGrounded = Physics2D.OverlapBox(position, groundCheckSize, 0, groundLayerMask);
-        
+
         if (isGrounded || infiniteJump)
         {
             _currentGlideTimer = 0;
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         var targetVelocity = new Vector2(horizontal, rb.velocity.y);
         rb.velocity = Vector2.SmoothDamp(rb.velocity, targetVelocity, ref _velocity, isGrounded ? 0.1f : 0.3f);
     }
-    
+
     private void OnJumpPressed()
     {
         if (infiniteJump || isGrounded || _featherRemainingJump > 0)
@@ -140,8 +140,8 @@ public class PlayerController : MonoBehaviour
         if (PlayerInput.Glide && _currentGlideTimer <= glideTimer && rb.velocity.y < 0)
         {
             _currentGlideTimer += Time.deltaTime;
-            rb.velocity = new Vector2 (rb.velocity.x, -glideSpeed);
-            
+            rb.velocity = new Vector2(rb.velocity.x, -glideSpeed);
+
             if (_currentGlideTimer < glideTimer / 2.1f)
             {
                 SetTrigger("Gliding");
@@ -163,13 +163,13 @@ public class PlayerController : MonoBehaviour
         if (!isInvincible)
         {
             GameManager.Instance.TakeDamage();
-            
-            audioChicken.Hurt();
+
+            OnHit?.Invoke();
             isInvincible = true;
-            
+
             var knockbackDirection = ((Vector2)transform.position - contact).normalized;
             rb.velocity = knockbackDirection * 5f;
-            
+
             yield return new WaitForSeconds(1);
             isInvincible = false;
         }
@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if(!enabled) return;
+        if (!enabled) return;
         Gizmos.color = new Color(255, 0, 0, 150);
         Gizmos.DrawWireCube(transform.position + (Vector3)groundCheckOffset, groundCheckSize);
     }

@@ -1,6 +1,6 @@
-using Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 namespace UI
 {
@@ -11,13 +11,20 @@ namespace UI
         public GameOverMenuUI gameOverMenu;
         public EndLevelMenuUI endLevelMenu;
 
-        private void Awake()
+        private void OnEnable()
         {
             GameManager.OnGameOver += OpenGameOver;
             PlayerInput.OnPausePressed += OpenPause;
             EndLevel.OnLevelFinished += OpenEndLevel;
         }
-        
+
+        private void OnDisable()
+        {
+            GameManager.OnGameOver -= OpenGameOver;
+            PlayerInput.OnPausePressed -= OpenPause;
+            EndLevel.OnLevelFinished -= OpenEndLevel;
+        }
+
         public void OpenPause()
         {
             CloseAllMenu();
@@ -51,9 +58,10 @@ namespace UI
 
         public void QuitToMainMenu()
         {
+            Time.timeScale = 1;
             SceneManager.LoadSceneAsync((int)SceneEnum.MAIN_MENU);
         }
-        
+
         private void CloseAllMenu()
         {
             pauseMenu.gameObject.SetActive(false);

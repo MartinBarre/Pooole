@@ -1,16 +1,16 @@
 using System;
-using Utils;
 using UnityEngine;
+using Utils;
 
 public class CheckpointReach : MonoBehaviour
 {
     public static event Action<Vector3> OnCheckpointReach;
-    
+
     [SerializeField] private Animator animator;
     [SerializeField] private AudioClip reachClip;
 
     private bool _triggered;
-    
+
     private void Start()
     {
         animator.enabled = false;

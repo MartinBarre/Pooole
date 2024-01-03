@@ -1,6 +1,5 @@
-using Utils;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using Utils;
 
 public class TriggerDisableRenderer : MonoBehaviour
 {

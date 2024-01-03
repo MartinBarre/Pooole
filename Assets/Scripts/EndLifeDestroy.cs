@@ -7,7 +7,7 @@ public class EndLifeDestroy : MonoBehaviour
     private void Update()
     {
         lifeTime -= Time.deltaTime;
-        if(lifeTime <= 0)
+        if (lifeTime <= 0)
         {
             Destroy(gameObject);
         }

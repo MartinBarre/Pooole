@@ -7,9 +7,14 @@ namespace UI
     {
         [SerializeField] private TMP_Text countTxt;
 
-        private void Awake()
+        private void OnEnable()
         {
             GameManager.OnEggsChanged += UpdateUI;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnEggsChanged -= UpdateUI;
         }
 
         private void UpdateUI(int eggs)

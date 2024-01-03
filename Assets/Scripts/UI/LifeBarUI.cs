@@ -7,9 +7,14 @@ namespace UI
     {
         [SerializeField] private TMP_Text countTxt;
 
-        private void Awake()
+        private void OnEnable()
         {
             GameManager.OnLivesChanged += UpdateUI;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnLivesChanged -= UpdateUI;
         }
 
         private void UpdateUI(int nbLives)

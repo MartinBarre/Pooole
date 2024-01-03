@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,6 +8,16 @@ public class AudioChicken : MonoBehaviour
     public List<AudioClip> flap;
     public List<AudioClip> hurt;
     public List<AudioClip> walk;
+
+    private void OnEnable()
+    {
+        PlayerController.OnHit += Hurt;
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.OnHit -= Hurt;
+    }
 
     private void Flap()
     {
@@ -27,7 +36,7 @@ public class AudioChicken : MonoBehaviour
         AudioManager.Instance.PlaySound(audioClip, 0.3f);
     }
 
-    public void Hurt()
+    private void Hurt()
     {
         var audioClip = hurt[Random.Range(0, hurt.Count)];
         AudioManager.Instance.PlaySound(audioClip, 0.3f);

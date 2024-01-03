@@ -1,5 +1,5 @@
-using Utils;
 using UnityEngine;
+using Utils;
 
 public class TrueDeathZone : MonoBehaviour
 {

@@ -10,12 +10,10 @@ public class ParallaxEffect : MonoBehaviour
     public float offsetY;
 
     private float length;
-    private float startPos;
 
     private void Start()
     {
         transform.position = new Vector2(offsetX, cam.transform.position.y + offsetY);
-        startPos = transform.position.x;
         length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 

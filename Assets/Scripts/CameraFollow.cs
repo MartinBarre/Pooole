@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;
 
     private Vector3 _velocity;
-    
+
     private void Update()
     {
         if (GameManager.Instance.cameraFollowPlayer)
